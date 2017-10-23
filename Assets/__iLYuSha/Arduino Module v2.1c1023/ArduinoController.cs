@@ -17,25 +17,27 @@ using System.Threading;
 public class ArduinoController : MonoBehaviour
 {
     public MessageBox msgBox;
+    public Text textTime;
+    int bootTime, receiveTime;
     public static ArduinoController instance;
     public static SerialPort arduinoSerialPort;
     public static string command;
     public static bool readline;
     private Thread myThread;
-    private bool connectAruidnoCompleted;
+    [HideInInspector]
+    public bool connectAruidnoCompleted;
     private bool cancel;
 
-    /* Arduino Setting */
-    bool initializeCheck;
+    [Header("Arduino Setting")]
     public GameObject panelSetting;
-
     public GameObject groupPort;
-    Toggle[] port;
-    string serialPort = "COM9";
     public GameObject groupBaud;
+    private bool initializeCheck;
+    Toggle[] port;
     Toggle[] baud;
+    string serialPort = "COM9";
     int serialBaud = 9600;
-    int[] valueBaud = new int[] {9600, 2400, 4800, 9600, 19200, 38400, 57600 };
+    int[] valueBaud = new int[] {9600, 4800, 9600, 19200, 38400 };
 
     void Awake()
     {
@@ -97,7 +99,7 @@ public class ArduinoController : MonoBehaviour
         {
             Application.Quit();
         }
-        if (Input.GetKeyDown(KeyCode.F10))
+        if (Input.GetKeyDown(KeyCode.F10)|| Input.GetKeyDown(KeyCode.KeypadMinus))
         {
             panelSetting.SetActive(!panelSetting.activeSelf);
             Cursor.visible = !Cursor.visible;
@@ -113,9 +115,13 @@ public class ArduinoController : MonoBehaviour
         if (readline)
         {
             readline = false;
-            msgBox.AddNewMsg(command);
+            if (command == "Wakaka")
+                receiveTime = (int)Time.time;
+            else
+                msgBox.AddNewMsg(command);
             command = "";
         }
+        textTime.text = bootTime + "\n" + receiveTime + "\n" + (int)Time.time;
     }
 
     #region Arduino
@@ -128,7 +134,8 @@ public class ArduinoController : MonoBehaviour
             connectAruidnoCompleted = true;
             myThread = new Thread(new ThreadStart(GetArduino));
             myThread.Start();
-
+            bootTime = (int)Time.time;
+            textTime.text = bootTime + "\n---\n"+(int)Time.time;
             arduinoSerialPort.WriteLine("R");
             msgBox.AddNewMsg("已開始接受訊號");
         }
@@ -169,6 +176,7 @@ public class ArduinoController : MonoBehaviour
                 Thread.Sleep(1000);
                 myThread.Abort();
                 Debug.Log("Thread isAlive ? " + myThread.IsAlive);
+                connectAruidnoCompleted = false;
             }
             else
             {
@@ -179,6 +187,19 @@ public class ArduinoController : MonoBehaviour
     void OnApplicationQuit()
     {
         Quit();
+    }
+
+    public void BreakArduino()
+    {
+        Quit();
+        StartCoroutine(Delay());
+    }
+
+    public IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(1.0f);
+        cancel = false;
+
     }
     #endregion
 }

@@ -81,9 +81,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\RoundTableManager.cs" />
     <Compile Include="Assets\WakakaGalaxy.cs" />
-    <Compile Include="Assets\__iLYuSha\Arduino Module\ArduinoController.cs" />
-    <Compile Include="Assets\__iLYuSha\Arduino Module\MessageBox.cs" />
+    <Compile Include="Assets\__iLYuSha\Arduino Module v2.1c1023\ArduinoController.cs" />
+    <Compile Include="Assets\__iLYuSha\Arduino Module v2.1c1023\MessageBox.cs" />
     <Compile Include="Assets\__iLYuSha\Tools Package v1.001a\MaxWindow.cs" />
     <Compile Include="Assets\__iLYuSha\Tools Package v1.001a\Streaming Loader\MusicLoader.cs" />
   </ItemGroup>

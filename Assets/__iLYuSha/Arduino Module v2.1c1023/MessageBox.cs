@@ -11,24 +11,23 @@ public class MessageBox : MonoBehaviour
 
     public void AddNewMsg(string msg)
     {
-        //Debug.Log("///////////////////////////////////////////////////////");
+        if (msg == "" || msg == null)
+            return;
+
         msgBox.text = "";
         if (msgList.Count == 30)
             msgList.RemoveAt(0);
         msgList.Add(msg);
 
-        int x = msgList.Count;
-
         for (int i = 0; i < msgList.Count; i++)
         {
-            if (x != msgList.Count)
-                Debug.LogError("weaadasdasd");
-            if (msgList[i] != "")
-                msgBox.text += ("\n" + i + ": " + msgList[i]);
-            else if (msgList[i] == null)
-                msgBox.text += ("\n" + i + ": null");
-            else
-                msgBox.text += ("\n" + i + ": 空");
+            msgBox.text += ("\n" + i + ": " + msgList[i]);
+            //if (msgList[i] != "")
+            //    msgBox.text += ("\n" + i + ": " + msgList[i]);
+            //else if (msgList[i] == null)
+            //    msgBox.text += ("\n" + i + ": null");
+            //else
+            //    msgBox.text += ("\n" + i + ": 空");
             //Debug.Log(i + ":" + msgList[i]);
         }
     }

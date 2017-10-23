@@ -45,21 +45,21 @@ public class WakakaGalaxy : MonoBehaviour
 
     void Awake()
     {
-        if (ArduinoController.instance == null)
-        {
-            PlayerPrefs.SetInt("lastScene", SceneManager.GetActiveScene().buildIndex+100);
-            SceneManager.LoadScene("Arduino Controller");
-        }
+        //if (ArduinoController.instance == null)
+        //{
+        //    PlayerPrefs.SetInt("lastScene", SceneManager.GetActiveScene().buildIndex+100);
+        //    SceneManager.LoadScene("Arduino Controller");
+        //}
 
-        roundTableKnight = new string[5];
-        roundTableKnight[0] = "";
+        //roundTableKnight = new string[5];
+        //roundTableKnight[0] = "";
 
-        roundTableKnight[1] = "Tristan";
-        roundTableKnight[2] = "Galahad";
-        roundTableKnight[3] = "Arthur";
-        roundTableKnight[4] = "Lancelot";
-        pentagram.SetActive(false);
-        ready = true;
+        //roundTableKnight[1] = "Tristan";
+        //roundTableKnight[2] = "Galahad";
+        //roundTableKnight[3] = "Arthur";
+        //roundTableKnight[4] = "Lancelot";
+        //pentagram.SetActive(false);
+        //ready = true;
     }
 
     IEnumerator End()
